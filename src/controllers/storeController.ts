@@ -7,7 +7,10 @@ export const getStore = async (req: Request, res: Response) => {
   try {
     let store;
     if (name) {
-      store = await StoreModel.findOne({ name: name });
+      const regex = new RegExp(`${name}`, "i");
+      store = await StoreModel.find({
+        name: regex,
+      });
     }
 
     if (address) {
