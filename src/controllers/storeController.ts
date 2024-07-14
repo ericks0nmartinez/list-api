@@ -3,6 +3,7 @@ import { StoreModel } from "../models/Store";
 
 // Retorna uma loja pelo ID
 export const getStore = async (req: Request, res: Response) => {
+  // refatorar para buscar listar resultado até 80% da palavra certa 
   const { address, name, id } = req.query;
   try {
     let store;
@@ -11,6 +12,7 @@ export const getStore = async (req: Request, res: Response) => {
       store = await StoreModel.find({
         name: regex,
       });
+
     }
 
     if (address) {

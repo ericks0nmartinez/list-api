@@ -3,14 +3,13 @@ import { PurchaseModel } from "../models/Purchase";
 
 // Retorna uma compra pelo ID
 export const getPurchase = async (req: Request, res: Response) => {
-  const { id, nameUser, idUser } = req.query;
+  const { id, idUser } = req.query;
   let purchase;
   try {
     if (id) purchase = await PurchaseModel.findById(id);
-    if (idUser && nameUser)
+    if (idUser )
       purchase = await PurchaseModel.findOne({
-        idUser: idUser,
-        nameUser: nameUser,
+        idUser: idUser
       });
     if (!purchase) {
       return res.status(404).json({ message: "Compra não encontrada" });

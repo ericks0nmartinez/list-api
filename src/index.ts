@@ -1,4 +1,5 @@
 import express from "express";
+const cors = require('cors');
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import purchaseRoute from "./routes/purchaseRoutes";
@@ -7,7 +8,6 @@ import basicListRoute from "./routes/basicListRoutes";
 import storeRoutes from "./routes/storeRoutes";
 import userRoutes from "./routes/userRoutes";
 import versionRoutes from "./routes/versionRoutes";
-const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
@@ -18,7 +18,6 @@ const DB = process.env.DB;
 const port = process.env.PORT || 4001;
 const corsOptions = {
   origin: "*",
-  credentials: true,
   optionSuccessStatus: 200,
 };
 
