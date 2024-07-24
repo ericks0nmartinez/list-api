@@ -1,5 +1,5 @@
 import express from "express";
-import { createPurchases, getPurchase, getPurchases, updatePurchases, } from "../controllers/purchaseController";
+import { createPurchases, getPurchase, getPurchases, updatePurchases, } from "../controllers/purchaseController.js";
 const router = express.Router();
 // Rota para salvar uma nova loja
 router.get("/", getPurchase);

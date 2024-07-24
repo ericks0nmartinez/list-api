@@ -1,4 +1,4 @@
-import { StoreModel } from "../models/Store";
+import { StoreModel } from "../models/Store.js";
 // Retorna uma loja pelo ID
 export const getStore = async (req, res) => {
     // refatorar para buscar listar resultado até 80% da palavra certa 

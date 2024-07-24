@@ -1,4 +1,4 @@
-import { BasicProductModel } from "../models/BasicList";
+import { BasicProductModel } from "../models/BasicList.js";
 // Retorna todos os produtos da lista básica
 export const getAllBasicProducts = async (req, res) => {
     try {

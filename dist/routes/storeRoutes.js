@@ -1,5 +1,5 @@
 import express from "express";
-import { createStore, getStore, getStores, } from "../controllers/storeController";
+import { createStore, getStore, getStores, } from "../controllers/storeController.js";
 const router = express.Router();
 // Rota para salvar uma nova loja
 router.get("/", getStore);

@@ -1,4 +1,4 @@
-import { UserModel } from "../models/User";
+import { UserModel } from "../models/User.js";
 // Retorna um usuário pelo ID
 export const getUsers = async (req, res) => {
     const { name, address } = req.query;

@@ -1,4 +1,4 @@
-import { ProductModel } from "../models/Product";
+import { ProductModel } from "../models/Product.js";
 // Retorna um produto pelo ID
 export const getProduct = async (req, res) => {
     const { id, idUser, idStore, name } = req.query;

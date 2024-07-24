@@ -1,4 +1,4 @@
-import { PurchaseModel } from "../models/Purchase";
+import { PurchaseModel } from "../models/Purchase.js";
 // Retorna uma compra pelo ID
 export const getPurchase = async (req, res) => {
     const { id, idUser } = req.query;

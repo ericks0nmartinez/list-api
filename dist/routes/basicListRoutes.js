@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllBasicProducts, createBasicProduct, getBasicProductById, updateBasicProduct, getBasicProductorder, } from "../controllers/basicListController";
+import { getAllBasicProducts, createBasicProduct, getBasicProductById, updateBasicProduct, getBasicProductorder, } from "../controllers/basicListController.js";
 const router = express.Router();
 // Rota para salvar uma nova loja
 router.get("/", getBasicProductById);
