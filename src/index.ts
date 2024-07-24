@@ -1,21 +1,21 @@
 import express from "express";
-const cors = require('cors');
+import cors from 'cors';
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import purchaseRoute from "./routes/purchaseRoutes";
-import productRoute from "./routes/productRoutes";
-import basicListRoute from "./routes/basicListRoutes";
-import storeRoutes from "./routes/storeRoutes";
-import userRoutes from "./routes/userRoutes";
-import versionRoutes from "./routes/versionRoutes";
-require("dotenv").config();
+import purchaseRoute from "./routes/purchaseRoutes.js";  // Note the ".js" extension for ES modules
+import productRoute from "./routes/productRoutes.js";    // Note the ".js" extension for ES modules
+import basicListRoute from "./routes/basicListRoutes.js"; // Note the ".js" extension for ES modules
+import storeRoutes from "./routes/storeRoutes.js";        // Note the ".js" extension for ES modules
+import userRoutes from "./routes/userRoutes.js";          // Note the ".js" extension for ES modules
+import versionRoutes from "./routes/versionRoutes.js";    // Note the ".js" extension for ES modules
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-const USER = process.env.DB_USER;
-const ID_DB = process.env.ID_DB;
-const PASSWORD = process.env.DB_PASSWORD;
-const DB = process.env.DB;
-const port = process.env.PORT || 4001;
+const { DB_USER, ID_DB, DB_PASSWORD, DB, PORT } = process.env;
+const port = PORT || 4001;
+
 const corsOptions = {
   origin: "*",
   optionSuccessStatus: 200,
@@ -32,11 +32,11 @@ app.use("/product", productRoute);
 
 mongoose
   .connect(
-    `mongodb+srv://${USER}:${PASSWORD}@cluster0.${ID_DB}.mongodb.net/${DB}`
+    `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.${ID_DB}.mongodb.net/${DB}`
   )
   .then(() => {
     app.listen(port, () => {
       console.log(`Server listening at http://localhost:${port}`);
     });
   })
-  .catch((err) => console.log(err));
+  .catch((err: any) => console.error(err));
