@@ -17,14 +17,15 @@ export const getProduct = async (req, res) => {
         const products = await ProductModel.find(query)
             .sort({ updatedAt: -1, createdAt: -1 });
         if (!products || products.length === 0) {
-            return res.status(404).json({ message: "Produto não encontrado" });
+            return res.json([]);
         }
-        res.json(products);
+        return res.json(products);
     }
     catch (error) {
         res.status(500).json({ message: "Erro ao buscar produto", error });
     }
 };
+
 export const getFindProduct = async (req, res) => {
     const { name } = req.query;
     try {
@@ -63,6 +64,7 @@ export const getFindProduct = async (req, res) => {
         res.status(500).json({ message: "Erro ao buscar produto", error });
     }
 };
+
 export const getValueProduct = async (req, res) => {
     const { name } = req.query;
     try {

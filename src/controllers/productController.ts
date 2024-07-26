@@ -21,24 +21,24 @@ export const getProduct = async (req: Request, res: Response) => {
       .sort({ updatedAt: -1, createdAt: -1 });
 
     if (!products || products.length === 0) {
-      return res.status(404).json({ message: "Produto não encontrado" });
+      return res.json([]);
+    } else {
+      return res.json(products);
     }
-
-    res.json(products);
   } catch (error) {
     res.status(500).json({ message: "Erro ao buscar produto", error });
   }
 };
 
 export const getFindProduct = async (req: Request, res: Response) => {
-  const {  name } = req.query;
+  const { name } = req.query;
 
   try {
-   
+
     let query = {};
 
-   if (name) {
-      query = { name: new RegExp(`${name}`, "i"),  idStore: { $ne: "my-list"}  };
+    if (name) {
+      query = { name: new RegExp(`${name}`, "i"), idStore: { $ne: "my-list" } };
     }
 
     // Busca o produto com base na consulta e ordena por updatedAt (descendente) e createdAt (descendente)
@@ -57,7 +57,7 @@ export const getFindProduct = async (req: Request, res: Response) => {
           unitType: product.unitType
         }
       }
-    ));
+      ));
     }
 
     res.json(products.map(product => {
@@ -70,7 +70,7 @@ export const getFindProduct = async (req: Request, res: Response) => {
         unitType: product.unitType
       }
     }
-  ));
+    ));
   } catch (error) {
     res.status(500).json({ message: "Erro ao buscar produto", error });
   }
@@ -96,13 +96,13 @@ export const getValueProduct = async (req: Request, res: Response) => {
         name: regex,
         price: { $ne: 0 } // Considera apenas produtos com preço diferente de zero
       })
-      .sort({ updatedAt: -1, createdAt: -1 })
+        .sort({ updatedAt: -1, createdAt: -1 })
     }
     let findMinValue
 
     if (!products || products.length === 0) {
       if (!products || products.length === 0) {
-        return res.json({name: name, price:"Não tem", findIdStore: "Não tem" });
+        return res.json({ name: name, price: "Não tem", findIdStore: "Não tem" });
       }
     }
 
@@ -119,7 +119,7 @@ export const getValueProduct = async (req: Request, res: Response) => {
           price: price,
           idStore: idStore
         };
-      findMinValue = {name: name, price: minPrices[name].price, findIdStore: minPrices[name].idStore }
+        findMinValue = { name: name, price: minPrices[name].price, findIdStore: minPrices[name].idStore }
 
       }
     }
@@ -146,14 +146,14 @@ export const getValueProductStore = async (req: Request, res: Response) => {
         idStore: idStore,
         price: { $ne: 0 } // Considera apenas produtos com preço diferente de zero
       })
-      .sort({ updatedAt: -1, createdAt: -1 });
+        .sort({ updatedAt: -1, createdAt: -1 });
     }
 
     let findMinValue
 
     if (!products || products.length === 0) {
       if (!products || products.length === 0) {
-        return res.json({name: name, price:"Não tem", findIdStore: "Não tem" });
+        return res.json({ name: name, price: "Não tem", findIdStore: "Não tem" });
       }
     }
 
@@ -170,7 +170,7 @@ export const getValueProductStore = async (req: Request, res: Response) => {
           price: price,
           idStore: idStore
         };
-      findMinValue = {name: name, price: minPrices[name].price, findIdStore: minPrices[name].idStore }
+        findMinValue = { name: name, price: minPrices[name].price, findIdStore: minPrices[name].idStore }
 
       }
     }
@@ -196,7 +196,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
 // Cria um novo produto
 export const createProducts = async (req: Request, res: Response) => {
   const productsData = req.body; // Recebe o array de produtos no corpo da requisição
-  
+
   // Para cada produto em productsData, seta createdAt, updatedAt e status
   productsData.createdAt = `${new Date()}`;
   productsData.updatedAt = "";
