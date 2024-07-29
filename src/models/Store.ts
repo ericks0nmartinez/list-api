@@ -4,6 +4,7 @@ import mongoose, { Schema, Document } from "mongoose";
 interface StoreModel extends Document {
   _id: string;
   name: string;
+  category: "Posto" | "Alimento" | "Construção";
   address: string;
   cep: string;
   number: string;
@@ -14,6 +15,10 @@ interface StoreModel extends Document {
 const storeSchema: Schema = new Schema({
   name: { type: String, required: true },
   address: { type: String },
+  category: {
+    type: String,
+    enum: ["Posto", "Alimento", "Construção"],
+    required: true },
   cep: { type: String, required: true },
   number: { type: String, required: true },
   longitude: { type: String },

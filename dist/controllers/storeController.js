@@ -26,6 +26,29 @@ export const getStore = async (req, res) => {
         res.status(500).json({ message: "Erro ao buscar loja", error });
     }
 };
+
+export const getCategoryStore = async (req, res) => {
+    // refatorar para buscar listar resultado até 80% da palavra certa 
+    const { category } = req.query;
+    try {
+        let store;
+        if (category) {
+            const regex = new RegExp(`${category}`, "i");
+            store = await StoreModel.find({
+                category: regex,
+            });
+        }
+        
+        if (!store) {
+            return res.status(404).json({ message: "Loja não encontrada" });
+        }
+        res.json(store);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Erro ao buscar loja", error });
+    }
+};
+
 // Retorna todas as lojas
 export const getStores = async (req, res) => {
     try {
@@ -36,12 +59,26 @@ export const getStores = async (req, res) => {
         res.status(500).json({ message: "Erro ao buscar lojas", error });
     }
 };
+
+export const getStoresCategories = async (req, res) => {
+    try {
+      const stores = await StoreModel.find();
+  
+      // Extrair categorias únicas
+      const categories = [...new Set(stores.map(store => store.category))];
+  
+      res.json(categories);
+    } catch (error) {
+      res.status(500).json({ message: "Erro ao buscar categorias", error });
+    }
+  };
 // Cria uma nova loja
 export const createStore = async (req, res) => {
-    const { name, address, cep, number, longitude, latitude } = req.body;
+    const { name, address, cep, number, longitude, latitude, category } = req.body;
     try {
         const newStore = new StoreModel({
             name,
+            category,
             address,
             cep,
             number,
